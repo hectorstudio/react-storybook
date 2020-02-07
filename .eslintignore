@@ -1,0 +1,7 @@
+
+# generated scss module types
+*.module.scss.d.ts
+
+# untouched files of CRA
+serviceWorker.ts
+react-app-env.d.ts

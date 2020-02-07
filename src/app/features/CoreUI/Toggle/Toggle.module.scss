@@ -1,0 +1,45 @@
+@import '../variables';
+
+.toggleButton {
+  width: 44px;
+  height: 24px;
+  padding: 1px;
+  display: flex;
+  background: $gray-200;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  transition: all 300ms;
+  cursor: pointer;
+
+  &.checked {
+    background: $green-600;
+  }
+
+  &.disabled {
+    background: $white;
+    border-color: $gray-200;
+    cursor: initial;
+  }
+}
+
+.toggleHandle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: $white;
+  border-radius: 10px;
+  outline: none;
+  transition: all 300ms;
+
+  &.checked {
+    transform: translateX(100%);
+  }
+
+  &.disabled {
+    background: $gray-200;
+  }
+}
+
+.input {
+  display: none;
+}

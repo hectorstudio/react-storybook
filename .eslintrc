@@ -1,0 +1,77 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "eslint-comments",
+    "jest",
+    "promise",
+    "unicorn",
+    "import"
+  ],
+  "extends": [
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:eslint-comments/recommended",
+    "plugin:jest/recommended",
+    "plugin:promise/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:import/errors",
+    "plugin:import/typescript"
+  ],
+  "rules": {
+    "max-len": [2, 120],
+    "react/jsx-props-no-spreading": 0,
+    "react/prop-types": 0,
+    "react/button-has-type": 0,
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          ".storybook/**",
+          "stories/**",
+          "**/*.stories.tsx"
+        ]
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["Label"],
+      "labelAttributes": ["title"],
+      "controlComponents": ["Input", "Checkbox", "FancyCheckbox", "Toggle"],
+      "depth": 3
+    }],
+    "object-curly-newline": [2, { "multiline": true }],
+    "unicorn/filename-case": 0,
+    "unicorn/prefer-query-selector": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "whitelist": {
+          "props": true,
+          "otherProps": true,
+          "hoverRef": true,
+          "useCombinedRefs": true,
+          "targetRef": true,
+          "refs": true,
+          "ref": true
+        }
+      }
+    ],
+    "eslint-comments/disable-enable-pair": ["error", {"allowWholeFile": true}],
+    "import/order": ["error", {
+      "groups": [
+        ["external", "builtin"],
+        ["internal", "index", "sibling", "parent"]
+      ],
+      "newlines-between": "always"
+    }]
+  }
+}

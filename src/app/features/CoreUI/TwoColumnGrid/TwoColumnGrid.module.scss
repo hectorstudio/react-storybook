@@ -1,0 +1,31 @@
+.twoColumnContainer {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+
+  > * {
+    display: block;
+  }
+}
+
+.normal {
+  > * {
+    margin: 12px;
+    flex: 0 0 calc(50% - 24px);
+
+    @media only screen and (max-width: 600px) {
+      flex: 0 0  calc(100% - 24px);
+    }
+  }
+}
+
+.big {
+  > * {
+    margin: 24px;
+    flex: 0 0 calc(50% - 48px);
+
+    @media only screen and (max-width: 600px) {
+      flex: 0 0  calc(100% - 48px);
+    }
+  }
+}
