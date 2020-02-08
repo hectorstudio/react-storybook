@@ -1,4 +1,4 @@
-import React, { FC, forwardRef, Ref, useRef, useCallback, useState } from 'react';
+import React, { FC, forwardRef, Ref, useRef, useCallback, useState, useEffect } from 'react';
 
 import styles from './Checkbox.module.scss';
 import CheckboxIcon from '../Icons/CheckboxIcon';
@@ -41,6 +41,8 @@ const Checkbox: FC<Props> = forwardRef((props, ref) => {
   const { label, checked, disabled, onChange, ...otherProps } = props;
 
   const [isChecked, setChecked] = useState(!!checked);
+
+  useEffect(() => setChecked(!!checked), [!!checked])
 
   const toggle = useCallback(
     () => {

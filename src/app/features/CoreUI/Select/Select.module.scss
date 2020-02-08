@@ -1,0 +1,51 @@
+@import "../variables.scss";
+
+.select {
+  background-color: $gray-100;
+  border: none;
+  border-radius: 4px;
+  color: $gray-700;
+  height: 40px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 16px;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.opened {
+    > svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.menu {
+  border: 1px solid $gray-200;
+  border-bottom: none;
+  border-radius: 4px;
+  box-shadow: 0px 8px 10px rgba(82, 97, 119, 0.16);
+  margin-top: 11px;
+  width: 200px;
+
+  .option {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding-left: 20px;
+    border-bottom: 1px solid $gray-200;
+
+    &:hover, &:focus {
+      background-color: $gray-100;
+    }
+  }
+  
+  &:focus {
+    outline: 0;
+  }
+}
