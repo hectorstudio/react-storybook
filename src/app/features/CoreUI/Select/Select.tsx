@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, useRef } from 'react';
+import React, { FC, useState, useCallback, Ref, useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 
 import styles from './Select.module.scss';
@@ -6,6 +6,11 @@ import Checkbox from '../Checkbox/Checkbox';
 import DropDownIcon from '../Icons/DropDownIcon';
 
 interface Props {
+  /**
+   * Identifier for form submit
+   */
+  name?: string;
+
   /**
    * Placeholder for Dropdown
    */
@@ -34,17 +39,17 @@ interface Props {
   /**
    * Register callback for change event
    */
-  onChange: (newValue: Array<string> | string) => void;
+  onChange?: (newValue: Array<string> | string) => void;
+
+  /**
+   * React ref passtrough to select node
+   */
+  ref?: Ref<HTMLButtonElement>;
 }
 
-const Select: FC<Props> = ({
-  disabled,
-  isMulti,
-  isOpen,
-  onChange,
-  options = [],
-  placeholder = ''
-}) => {
+const Select: FC<Props> = forwardRef((props, ref) => {
+  
+  const { disabled, isMulti, isOpen, onChange, options = [], placeholder = '', ...otherProps } = props
 
   const [selected, setSelected] = useState<Array<number>>([]);
   const [labels, setLabel] = useState<Array<string>>([placeholder]);
@@ -53,8 +58,19 @@ const Select: FC<Props> = ({
 
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const toggleOpenClose = () => {
-    setOpened(!isOpened);
+  const interceptEvent = (event: React.MouseEvent) => {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+  }
+
+  const toggleOpenClose = async (event: React.MouseEvent) => {
+    interceptEvent(event);
+    await setOpened(!isOpened);
     if (!isOpened && menuRef.current) {
       menuRef.current.focus();
     }
@@ -66,7 +82,7 @@ const Select: FC<Props> = ({
 
   const handleChange = useCallback(
     (index: number) => (event: React.MouseEvent) => {
-      event.preventDefault();
+      interceptEvent(event);
       let newValue = [options[index].value];
       let newLabel = [options[index].label];
       if (!!isMulti) {
@@ -77,18 +93,17 @@ const Select: FC<Props> = ({
         newLabel = selectedIndex.length
           ? selectedIndex.map(sel => options[sel].label)
           : [placeholder];
-        setSelected(selectedIndex)
+        setSelected(selectedIndex);
       } else {
-        setSelected([index])
+        setSelected([index]);
         setOpened(false);
       }
       setValues(newValue);
       setLabel(newLabel);
-      
       if (onChange) {
         onChange(!!isMulti ? newValue : newValue[0])
       }
-    }, [values, onChange]
+    }, [selected, isMulti, options, placeholder, onChange]
   );
 
   const renderOption = (
@@ -96,7 +111,7 @@ const Select: FC<Props> = ({
     index: number
   ) => (
     <div
-      key={`${option.label}-${index}`}
+      key={`select-option-${index}`}
       className={styles.option}
       onClick={handleChange(index)}
     >
@@ -119,19 +134,25 @@ const Select: FC<Props> = ({
   );
 
   return (
-    <React.Fragment>
+    <div className={styles.container} onKeyDown={handleKeyDown}>
       <button
+        type='button'
         className={classNames(styles.select, { [styles.opened]: isOpened })}
         disabled={disabled}
         onClick={toggleOpenClose}
         tabIndex={0}
+        ref={ref}
+        value={values}
+        {...otherProps}
       >
-        {labels.join(',')}
+        <span className={styles.label}>
+          {labels.join(',')}
+        </span>
         <DropDownIcon />
       </button>
       {isOpened && renderOptionMenu}
-    </React.Fragment>
+    </div>
   );
-};
+});
 
 export default Select;

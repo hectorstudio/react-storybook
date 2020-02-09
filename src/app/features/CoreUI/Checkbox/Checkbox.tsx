@@ -42,7 +42,7 @@ const Checkbox: FC<Props> = forwardRef((props, ref) => {
 
   const [isChecked, setChecked] = useState(!!checked);
 
-  useEffect(() => setChecked(!!checked), [!!checked])
+  useEffect(() => setChecked(!!checked), [checked])
 
   const toggle = useCallback(
     () => {
