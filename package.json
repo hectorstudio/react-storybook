@@ -82,7 +82,7 @@
     "eslint-plugin-unicorn": "^15.0.1",
     "react-test-renderer": "^16.12.0",
     "serve": "^11.3.0",
-    "stylelint": "^13.0.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-css-modules": "^2.2.0",
     "stylelint-config-standard": "^19.0.0",
     "typed-scss-modules": "^1.1.0"
